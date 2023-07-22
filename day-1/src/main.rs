@@ -1,8 +1,8 @@
-fn day_1(summaries: Vec<u32>) {
+fn puzzle_a(summaries: Vec<u32>) {
     println!("{}", summaries.iter().max().expect("vec is empty"));
 }
 
-fn day_2(mut summaries: Vec<u32>) {
+fn puzzle_b(mut summaries: Vec<u32>) {
     summaries.sort();
     println!("{}", summaries.into_iter().rev().take(3).sum::<u32>());
 }
@@ -19,6 +19,6 @@ fn main() {
         })
         .collect::<Vec<u32>>();
 
-    day_1(summaries.clone());
-    day_2(summaries);
+    puzzle_a(summaries.clone());
+    puzzle_b(summaries);
 }
