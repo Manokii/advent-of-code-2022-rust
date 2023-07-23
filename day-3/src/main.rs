@@ -42,14 +42,12 @@ fn puzzle_b(rucksacks: Split<&str>) -> u32 {
         })
         .sum()
 }
+
 fn main() {
     let input = include_str!("input.txt").trim();
-
     let games = input.split("\n");
-
     let answer_a = puzzle_a(games.clone());
     let answer_b = puzzle_b(games);
-
     println!("Answer A: {}", answer_a);
     println!("Answer B: {}", answer_b);
 }
