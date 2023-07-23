@@ -1,4 +1,4 @@
-// Id Table: Rock = 1, Paper = 1, Scissors = 2
+// Id Table: Rock = 0, Paper = 1, Scissors = 2
 fn puzzle_a(input: Vec<(i16, i16)>) -> i16 {
     input
         .iter()
