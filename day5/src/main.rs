@@ -18,16 +18,20 @@ fn puzzle_a(mut stacks: Stacks, instructions: &Instructions) -> String {
 
 fn puzzle_b(mut stacks: Stacks, instructions: &Instructions) -> String {
     instructions.iter().for_each(|(count, a, b)| {
-        let mut to_reverse: Vec<char> = Default::default();
+        let stack = &mut stacks[a - 1];
+        let last_idx = stack.len();
 
-        for _ in 0..*count {
-            let c = stacks[a - 1].pop().unwrap();
-            to_reverse.push(c);
-        }
+        let idx = if count > &last_idx {
+            0
+        } else {
+            last_idx - count
+        };
 
-        to_reverse.iter().rev().for_each(|c| {
-            stacks[b - 1].push(*c);
-        })
+        let to_move = stack.splice(idx..last_idx, []);
+        to_move
+            .collect::<Vec<_>>()
+            .iter()
+            .for_each(|c| stacks[b - 1].push(*c));
     });
 
     stacks
@@ -64,8 +68,8 @@ fn main() {
     });
 
     let answer_a = puzzle_a(stacks.clone(), &instructions);
-    println!("Answer A {:?}", answer_a);
+    println!("Answer A: {}", answer_a);
 
     let answer_b = puzzle_b(stacks, &instructions);
-    println!("Answer B {:?}", answer_b)
+    println!("Answer B: {}", answer_b)
 }
