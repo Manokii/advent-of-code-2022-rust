@@ -1,19 +1,18 @@
-use std::collections::LinkedList;
 const STACK_SIZE: usize = 9;
 
-type Stacks = [LinkedList<char>; STACK_SIZE];
+type Stacks = [Vec<char>; STACK_SIZE];
 type Instructions = Vec<(usize, usize, usize)>;
 
 fn puzzle_a(mut stacks: Stacks, instructions: &Instructions) -> String {
     instructions.iter().for_each(|(count, a, b)| {
         for _ in 0..*count {
-            let c = stacks[a - 1].pop_back().unwrap();
-            stacks[b - 1].push_back(c);
+            let c = stacks[a - 1].pop().unwrap();
+            stacks[b - 1].push(c);
         }
     });
 
     stacks
-        .map(|mut stack| stack.pop_back().unwrap().to_string())
+        .map(|mut stack| stack.pop().unwrap().to_string())
         .join("")
 }
 
@@ -22,17 +21,17 @@ fn puzzle_b(mut stacks: Stacks, instructions: &Instructions) -> String {
         let mut to_reverse: Vec<char> = Default::default();
 
         for _ in 0..*count {
-            let c = stacks[a - 1].pop_back().unwrap();
+            let c = stacks[a - 1].pop().unwrap();
             to_reverse.push(c);
         }
 
         to_reverse.iter().rev().for_each(|c| {
-            stacks[b - 1].push_back(*c);
+            stacks[b - 1].push(*c);
         })
     });
 
     stacks
-        .map(|mut stack| stack.pop_back().unwrap().to_string())
+        .map(|mut stack| stack.pop().unwrap().to_string())
         .join("")
 }
 
@@ -59,7 +58,7 @@ fn main() {
             .enumerate()
             .for_each(|(i, c)| {
                 if c != ' ' {
-                    stacks[i].push_back(c);
+                    stacks[i].push(c);
                 }
             })
     });
